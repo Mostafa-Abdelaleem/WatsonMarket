@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<title>Watson Market</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<style>
+ .button,input[type=submit] {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 12px;
+  align:center;
+}
+#cart {
+  border-radius: 20px;
+  border-collapse: collapse;
+}
+
+#cart td, #cart th {
+  text-align: center;
+  padding: 6px;
+
+}
+
+#cart tr:nth-child(even){background-color: #f2f2f2;  color: black;}
+
+#cart tr:hover {background-color:#93fa97;}
+
+#cart th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+</style>
+
+<!------------------------------------------------------------------------------------------------------------------------------->
+
+<body class="w3-content" style="max-width:100vw;max-height:100vh;">
+
+
+<!-- Top menu on small screens -->
+<header style="height:7vh">
+  <span>
+    {% load static %}
+   <img  style="float:left;" src="{% static '/cart/vis_rec.svg' %}"alt="watson icon"><h3 style="float:left;margin:5px 5px;">Watson Market</h3>
+  </span>
+
+  <span >
+    <a href="https://developer.ibm.com/" target="_blank"
+    style="text-align:right;text-decoration:none;color:blue;"><h3 style="margin:5px 10px;">Build More!</h3></a>
+  </span>
+
+</header>
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!-- LEFT Grid -->
+<div class="w3-row">
+
+  <div class="w3-half w3-black w3-container w3-center" style="height:90vh;width:60%;">
+      <video  id="vid1" autoplay style="width:100%;height:90%;"></video>
+      <button id="capture" class="button"style="width:90%;height:7%;" type='button'>Add to Cart</button>
+      <canvas id="canvas" hidden></canvas>
+
+  </div>
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!-- RIGHT Grid -->
+  <div class="w3-half w3-dark-grey w3-container" style="height:90vh;width:40%; float:right;">
+    <h1 align="center">Cart</h1>
+    <!-----table----->
+    <div id="cart" style="overflow-x:auto;">
+      <table id="customers" align="center" style="width:100%">
+        <thead>
+        <tr>
+          <th>ITEM</th>
+          <th>#</th>
+          <th>PRICE</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tr>
+        {% for prod,quantity,pri in all %}
+        <tr>
+          <td>{{prod}}</td>
+          <td>{{quantity}}</td>
+          <td>{{pri}}</td>
+        {% endfor %}
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th>Total</th>
+          <th colspan="2" style="text-align:center">{{total}}</th>
+        </tr>
+        </tfoot>
+      </table>
+
+    </div>
+
+      <br>
+      <br>
+      <br>
+
+
+
+<!--      <p>{{items}}</p>-->
+<!--      <p>{{quantity}}</p>-->
+<!--      <p>{{prices}}</p>-->
+<!--      <p>{{res}}</p>-->
+
+<!--      <iframe name="ghost" style="display:none;"></iframe>-->
+<!--      <form id="imgform" action="" method="post" target="ghost" onsubmit="" >{% csrf_token %}-->
+<!--        <input id="imgin" type="hidden" name="image_data" value="">-->
+<!--      </form>-->
+
+<!--    <div align="center">-->
+<!--      <button id="newcart" class="button"style="width:50%;height:7%;" type='button'>New Cart</button>-->
+<!--      <form method="post" action="" target="ghost" id="resetform">-->
+<!--        <input id="resetin"  type="hidden" name="reset" value="" >-->
+<!--      </form>-->
+<!--    </div>-->
+    <div align="center">
+        <button id="newcart" class="button"style="width:50%;height:7%;" type='button'>New Cart</button>
+    </div>
+
+
+  </div>
+
+</div>
+
+<!------------------------------------------------------------------------------------------------------------------------------->
+
+<script>
+  const video = document.querySelector('video');
+
+// Attach the video stream to the video element and autoplay.
+  const constraints = { video: true , };
+  navigator.mediaDevices.getUserMedia(constraints).then((stream) => {video.srcObject = stream});
+
+
+//send image
+   $( "#capture" ).click(function() {
+     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+     //$('#imgin').val(canvas.toDataURL("image/png"));
+     var formdata={'image_data': canvas.toDataURL("image/png")};
+     $.ajax({
+        type: "POST",
+        url: "",
+        data: formdata,
+        success: function () {
+          $('#cart').load(' #cart')
+        }
+     });
+     //$('#imgform').submit()
+     //$('#cart').load(' #cart')
+
+   });
+
+
+
+//reset
+   $( "#newcart" ).click(function() {
+     $.ajax({
+          type: "POST",
+          url: "",
+          data: {'reset':"True"},
+          success: function () {
+            $('#cart').load(' #cart')
+            alert('Cart Cleared')
+          }
+     });
+   });
+
+
+
+
+
+</script>
+<!------------------------------------------------------------------------------------------------------------------------------->
+
+<!-- Footer -->
+<footer class="w3-container w3-white">
+  <p style="margin:0px 0px;height:3vh">Powered by <a href="https://cloud.ibm.com/catalog?category=ai" target="_blank">IBM Watson </a> </p>
+</footer>
+<!------------------------------------------------------------------------------------------------------------------------------->
+
+</body>
+</html>
