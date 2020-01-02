@@ -26,7 +26,9 @@ pip install requirements.txt
 ## Update model credentials and products list
 
 1-update `model credentials`
-    In /market_cart/views.py
+
+    In [Views of Market_cart App](market_cart/views.py)
+    
 ```
 visual_recognition = VisualRecognitionV3(
     'Model Version',
@@ -37,7 +39,9 @@ classes = visual_recognition.classify(img, threshold='0.8',
                                               classifier_ids='your model id').get_result()
 ```
 2-update `proucts dictionary`
-    In /market_cart/views.py
+
+    In [Views of Market_cart App](market_cart/views.py)
+    
 ```
 pro_dict = {"product1": price,"product2": price ........}
 
