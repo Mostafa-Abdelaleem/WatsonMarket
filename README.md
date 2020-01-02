@@ -4,7 +4,8 @@ Online Market Django App Using Watson visual recognition
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
 The project is an online store cashier that uses IBM's visual recognition model to identify and add products to cart.
 
 ### Prerequisites
@@ -24,7 +25,7 @@ pip install requirements.txt
 
 ## Update model credentials and products list
 
-1-update model credentials
+1-update `model credentials`
     In /market_cart/views.py
 ```
 visual_recognition = VisualRecognitionV3(
@@ -35,7 +36,7 @@ visual_recognition = VisualRecognitionV3(
 classes = visual_recognition.classify(img, threshold='0.8',
                                               classifier_ids='your model id').get_result()
 ```
-1-update proucts dictionary
+2-update `proucts dictionary`
     In /market_cart/views.py
 ```
 pro_dict = {"product1": price,"product2": price ........}
@@ -50,9 +51,6 @@ In main Directory
 python manage.py runserver
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
