@@ -16,22 +16,22 @@
   border-radius: 12px;
   align:center;
 }
-#cart {
+#Cartdiv {
   border-radius: 20px;
   border-collapse: collapse;
 }
 
-#cart td, #cart th {
+#Cartdiv td, #cart th {
   text-align: center;
   padding: 6px;
 
 }
 
-#cart tr:nth-child(even){background-color: #f2f2f2;  color: black;}
+#Cartdiv tr:nth-child(even){background-color: #f2f2f2;  color: black;}
 
-#cart tr:hover {background-color:#93fa97;}
+#Cartdiv tr:hover {background-color:#93fa97;}
 
-#cart th {
+#Cartdiv th {
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: #4CAF50;
@@ -70,10 +70,10 @@
   </div>
 <!------------------------------------------------------------------------------------------------------------------------------->
 <!-- RIGHT Grid -->
-  <div class="w3-half w3-dark-grey w3-container" style="height:90vh;width:40%; float:right;">
+  <div id="RightGrid" class="w3-half w3-dark-grey w3-container w3-center" style="height:90vh;width:40%;" float="right">
     <h1 align="center">Cart</h1>
     <!-----table----->
-    <div id="cart" style="overflow-x:auto;">
+    <div id="Cartdiv" style="overflow-x:auto;">
       <table id="customers" align="center" style="width:100%">
         <thead>
         <tr>
@@ -100,18 +100,13 @@
         </tfoot>
       </table>
 
+
+
     </div>
 
-      <br>
-      <br>
-      <br>
+     <br><br><br>
 
-
-
-<!--      <p>{{items}}</p>-->
-<!--      <p>{{quantity}}</p>-->
-<!--      <p>{{prices}}</p>-->
-<!--      <p>{{res}}</p>-->
+      <button id="newcart" class="button"style="width:50%;height:7%;" type='button'>New Cart</button>
 
 <!--      <iframe name="ghost" style="display:none;"></iframe>-->
 <!--      <form id="imgform" action="" method="post" target="ghost" onsubmit="" >{% csrf_token %}-->
@@ -124,10 +119,12 @@
 <!--        <input id="resetin"  type="hidden" name="reset" value="" >-->
 <!--      </form>-->
 <!--    </div>-->
-    <div align="center">
-        <button id="newcart" class="button"style="width:50%;height:7%;" type='button'>New Cart</button>
-    </div>
 
+
+<!--      <p>{{items}}</p>-->
+<!--      <p>{{quantity}}</p>-->
+<!--      <p>{{prices}}</p>-->
+      <p>{{res}}</p>
 
   </div>
 
@@ -153,24 +150,24 @@
         url: "",
         data: formdata,
         success: function () {
-          $('#cart').load(' #cart')
+          $('#Cartdiv').load(' #Cartdiv')
         }
      });
      //$('#imgform').submit()
-     //$('#cart').load(' #cart')
+     //$('#RightGrid').load(' #RightGrid')
 
    });
 
 
 
 //reset
-   $( "#newcart" ).click(function() {
+   $("#newcart").click(function() {
      $.ajax({
           type: "POST",
           url: "",
           data: {'reset':"True"},
           success: function () {
-            $('#cart').load(' #cart')
+            $('#Cartdiv').load(' #Cartdiv')
             alert('Cart Cleared')
           }
      });

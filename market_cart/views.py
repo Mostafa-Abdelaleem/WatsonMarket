@@ -32,38 +32,39 @@ def clear_(x):
 
 
 pro_dict = {"crunchy": 5.0, "indomie": 3.5, "bakerolls": 7.0, "m3mol": 4.5, "oreo": 2.0,
-            "redbull": 25.0, "schwepps": 10.0, "tiger": 3.0, "wafer": 2.5}
+            "redbull": 25.0, "schwepps": 10.0, "tiger": 3.0, "wafer": 2.5, "fanta":5.5}
 
 items = []
 quantity = []
 prices = []
 total=0
 
-reslt='initial'
-
 @csrf_exempt
 def cart(request):
 
     if request.method == 'POST' and 'image_data' in request.POST:
         img = process_img(request)
-        classes = visual_recognition.classify(img, threshold='0.6',
+        classes = visual_recognition.classify(img, threshold='0.8',
                                               classifier_ids='Prod-Class_1015062714').get_result()
-        res = classes['images'][0]["classifiers"][0]["classes"]
+        res = classes['images'][0]["classifiers"][0]["classes"][0]['class']
         if res:
-            if res[0]["class"] in items:
-                ind=items.index(res[0]["class"])
+            if res in items:
+                ind=items.index(res)
                 quantity[ind] +=1
-                prices[ind] = pro_dict[res[0]["class"]] * quantity[ind]
+                prices[ind] = pro_dict[res] * quantity[ind]
             else:
-                items.append(res[0]["class"])
+                items.append(res)
                 quantity.append(1)
-                prices.append(pro_dict[res[0]["class"]])
+                prices.append(pro_dict[res])
     elif request.method == 'POST' and 'reset' in request.POST:
         items.clear()
         quantity.clear()
         prices.clear()
         total=0
+
     _all = zip(items,quantity, prices)
     total = sum(prices)
-    context_vars = {'all': _all, "total": total,"items": items, "quantity": request.POST, "prices": prices, "res":reslt}
+
+    context_vars = {'all': _all, "total": total}
+
     return render(request, 'cart.html', context_vars)
