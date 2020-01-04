@@ -46,8 +46,9 @@ def cart(request):
         img = process_img(request)
         classes = visual_recognition.classify(img, threshold='0.8',
                                               classifier_ids='Prod-Class_1015062714').get_result()
-        res = classes['images'][0]["classifiers"][0]["classes"][0]['class']
+        res = classes['images'][0]["classifiers"][0]["classes"]
         if res:
+            res=res[0]['class']
             if res in items:
                 ind=items.index(res)
                 quantity[ind] +=1
