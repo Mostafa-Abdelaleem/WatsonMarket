@@ -6,7 +6,11 @@ The IBM Watson™ Visual Recognition service uses Deep Learning algorithms to an
 We will be using Django for our web application. Django is a high-level Python framework that saves most of the work when it comes to building web apps, so that one can focus on writing your application without recreating anything.
 
 # Creating the App.
-The first step is to create a Visual Recognition on IBM Cloud, and then we will create a model for object detection. Next, we will upload several pictures of different products and annotate the images for the products detected. We will press “Train model” and wait for a couple of minutes to have our model ready. At this point, we have a trained model that is ready to use. We can find the API interface for our Visual Recognition service from the Credentials tab, where we will use the key, along with the Collection ID, for our Django application. 
-Now, we will use our Django app. to send a picture of a product to our trained model. The model will return the detected product’s ID, which can be used to query a database for information on that product. For this demo, we used a simple Python dictionary to get the product’s price. 
+The first step is to create a Visual Recognition on IBM Cloud, and then we will create a model for object detection. Next, we will upload several pictures of different products and annotate the images for the products detected. We will press “Train model” and wait for a couple of minutes to have our model ready. 
+
+At this point, we have a trained model that is ready to use. We can find the API interface for our Visual Recognition service from the Credentials tab, where we will use the key, along with the Collection ID, for our Django application. 
+Now, we will use our Django app. to send a picture of a product to our trained model. The model will return the detected product’s ID, which can be used to query a database for information on that product.
+
+For this demo, we used a simple Python dictionary to get the product’s price. 
 
 Check out the Github repository to get started with this blog’s content.
